@@ -11,7 +11,23 @@ fn main() {
                 .short("a")
                 .long("add")
                 .value_name("FILE")
-                .help("Adds a dotfile to track")
+                .help("Adds a dotfile to track.")
+                .takes_value(true),
+        )
+        .arg(
+            Arg::with_name("export")
+                .short("e")
+                .long("export")
+                .value_name("FILE")
+                .help("Exports all dotfiles to an archive.")
+                .takes_value(true),
+        )
+        .arg(
+            Arg::with_name("import")
+                .short("i")
+                .long("import")
+                .value_name("FILE")
+                .help("Imports all dotfiles from an archive.")
                 .takes_value(true),
         )
         .get_matches();
@@ -22,6 +38,16 @@ fn main() {
             matches.value_of("add").unwrap()
         );
     } else {
-        println!("No changes detected");
+        println!("No dotfiles added.");
+    }
+    if matches.is_present("export") {
+        println!("Exporting to... {}", matches.value_of("export").unwrap());
+    } else {
+        println!("No exports requested");
+    }
+    if matches.is_present("import") {
+        println!("Importing from... {}", matches.value_of("export").unwrap());
+    } else {
+        println!("No imports requested");
     }
 }
